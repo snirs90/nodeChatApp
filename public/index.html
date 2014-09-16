@@ -15,27 +15,26 @@
 
   <div class="row">
     <div class="columns large-12">
-      <div class="panel clearfix">
+      <div class="panel clearfix" ng-controller="mainCtrl">
         <h1>Node chat app</h1>
 
-        <div class="panel bg-white" ng-controller="mainCtrl">
+        <div class="panel chat-panel" id="chatBody">
 
-          <p class="message">
-            <span class="date">20.09.2014</span>
-            <span class="author">Snir</span>
+          <p class="message" ng-repeat="message in messages">
+            <span class="date">{{ message.datetime }}</span>
+            <span class="author">{{ message.author }}</span>
             <span class="content">
-              Message content will be here.
+              {{ message.body }}
             </span>
           </p>
-
         </div>
 
-        <form class="row collapse">
+        <form class="row collapse" ng-submit="sendMessage(message)">
           <div class="columns small-10">
-            <input type="text" name="message" placeholder="Type a message..." />
+            <input type="text" ng-model="message" name="message" placeholder="Type a message..." />
           </div>
           <div class="columns small-2">
-            <button class="button tiny postfix">Send</button>
+            <input type="submit" class="button tiny postfix" value="Send "/>
           </div>
         </form>
       </div>
