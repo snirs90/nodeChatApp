@@ -1,1 +1,3 @@
-var chatApp = angular.module('chatApp', []);
+var chatApp = angular.module('chatApp', [
+    'btford.socket-io'
+]);

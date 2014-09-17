@@ -5,8 +5,7 @@
   //var messageRepo = require('./models/message/messageRepository');
   var dateFormat = require('dateformat');
 
-
-  module.exports = function(app) {
+  module.exports = function(app, io) {
 
     var getMessages = function(response) {
       Message.find(function(err, messages) {
@@ -23,7 +22,6 @@
     }
 
     app.post('/api/message', function(request, response) {
-      console.log(request.body.message);
 
       Message.create({
         body: request.body.message
@@ -32,11 +30,10 @@
           response.send(err);
         }
 
-        console.log("New message");
-        console.log(message);
-
         // Remove __v field.
         message = mongomask.mask(message, ['__v']);
+
+        io.sockets.emit("chat-message", { message: message });
 
         response.send(message);
       });
@@ -44,6 +41,10 @@
 
     app.get('/api/messages', function(request, response) {
       getMessages(response);
+    });
+
+    app.get('/api/getLastMessage', function(request, response) {
+      console.log("Get last message");
     });
 
   }

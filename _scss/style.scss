@@ -3,4 +3,30 @@
   height: 400px;
   overflow-y: scroll;
   overflow-x: hidden;
+
+  p.message {
+
+    span.user-info {
+      width: 18%;
+    }
+
+    span.date {
+      font-size: 0.7em;
+      color: #666;
+    }
+
+    span.author {
+      font-weight: normal;
+      font-size: 0.8em;
+      color: #333;
+      font-style: italic;
+    }
+
+    span.content {
+      padding-left: 0;
+      width: 82%;
+      font-size: 0.8em;
+      color: #333;
+    }
+  }
 }

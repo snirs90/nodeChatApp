@@ -1,11 +1,16 @@
 //controllers/main.js
 
-  chatApp.controller('mainCtrl', ['$scope', '$http', '$location', '$anchorScroll', function($scope, $http, $location, $anchorScroll) {
+  chatApp.controller('mainCtrl', ['$scope', '$http', '$timeout', 'Socket', function($scope, $http, $timeout, Socket) {
+
+    // Hold the users messages.
+    $scope.messages = [];
 
     // Hold the message.
     $scope.message = '';
 
-    $scope.messages = [];
+    $scope.cleanMessage = function() {
+      $scope.message = '';
+    }
 
     $scope.getMessages = function() {
       $http.get('/api/messages').success(function(data) {
@@ -36,19 +41,34 @@
         withCredentials: true,
         serverPredefined: true
       }).success(function(data){
-        $scope.messages.push(data);
-        goToBottom('chatBody');
+
+        $scope.cleanMessage();
+
       }).error(function(data) {
+
         console.log("error");
         console.log(data);
+
       });
 
     }
 
     var goToBottom = function(elmId, speed) {
-      var elm = jQuery('#' + elmId);
-      var scrollTo = parseInt(elm.prop('scrollHeight'));
-      elm.animate({scrollTop: scrollTo}, angular.isDefined(speed) ? speed : 1000);
+        $timeout(function() {
+        var elm = jQuery('#' + elmId);
+        var scrollTo = parseInt(elm.prop('scrollHeight'));
+        elm.animate({scrollTop: scrollTo}, angular.isDefined(speed) ? speed : 1000);
+      }, 100);
+
     }
+
+    // Listen to the socket with the event "chat-message".
+    Socket.on('chat-message', function (socket) {
+      if (socket.message) {
+        $scope.messages.push(socket.message);
+        goToBottom('chatBody');
+      }
+    });
+
 
   }]);
