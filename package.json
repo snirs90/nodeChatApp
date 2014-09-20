@@ -1,0 +1,21 @@
+{
+  "name": "node-chat",
+  "version": "0.0.1",
+  "description": "Simple chat application.",
+  "main": "server.js",
+  "author": "Snir Segal",
+  "dependencies": {
+    "body-parser": "~1.8.3",
+    "express": "~4.9.4",
+    "gulp": "^3.8.8",
+    "gulp-compass": "^1.3.1",
+    "gulp-inject": "~1.0.2",
+    "method-override": "~2.2.0",
+    "mongoose": "~3.8.16",
+    "morgan": "~1.3.1"
+  },
+  "devDependencies": {
+    "connect-livereload": "^0.4.0",
+    "tiny-lr": "^0.1.4"
+  }
+}
