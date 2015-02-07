@@ -10,7 +10,7 @@
   var Message = mongoose.model('Message', {
     body : String,
     datetime : { type: String, default: dateFormat(now, 'yyyy-mm-dd HH:MM:ss') },
-    author: {type: String, default: 'Snir' }
+    author: {type: String, default: null }
   });
 
   // Expose the message entity.
